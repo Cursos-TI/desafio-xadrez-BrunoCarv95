@@ -1,47 +1,62 @@
 #include <stdio.h>
 
-// Constantes para quantidade de movimentos
-#define MOV_TORRE 5
-#define MOV_BISPO 5
-#define MOV_RAINHA 8
-#define MOV_CAVALO 1
+// Função recursiva para mover a Torre 5 vezes para a direita
+void moverTorre(int passos) {
+    if (passos == 0) return;
+    printf("Direita\n");
+    moverTorre(passos - 1);
+}
+
+// Função recursiva com loop aninhado para mover o Bispo 5 vezes em diagonal (Cima + Direita)
+void moverBispo(int passos) {
+    if (passos == 0) return;
+
+    for (int i = 0; i < 2; i++) { // Loop aninhado
+        if (i == 0)
+            printf("Cima\n");
+        else
+            printf("Direita\n");
+    }
+
+    moverBispo(passos - 1);
+}
+
+// Função recursiva para mover a Rainha 8 vezes para a esquerda
+void moverRainha(int passos) {
+    if (passos == 0) return;
+    printf("Esquerda\n");
+    moverRainha(passos - 1);
+}
+
+// Movimento do Cavalo: L para cima e para a direita
+void moverCavalo() {
+
+    for (int i = 0, cima = 0; i < 3; i++) {
+        if (cima < 2) {
+            printf("Cima\n");
+            cima++;
+            continue;  // volta pro for sem executar o resto (i avança)
+        }
+
+        if (cima == 2) {
+            printf("Direita\n");
+            break; // movimento completo
+        }
+    }
+}
 
 int main() {
-    int i;
-
-    // Movimentação da TORRE: 5 casas para a direita (FOR)
     printf("Movimentação da Torre:\n");
-    for (i = 0; i < MOV_TORRE; i++) {
-        printf("Direita\n");
-    }
+    moverTorre(5);
 
-    // Movimentação do BISPO: 5 casas na diagonal superior direita (WHILE)
     printf("\nMovimentação do Bispo:\n");
-    i = 0;
-    while (i < MOV_BISPO) {
-        printf("Cima\n");
-        printf("Direita\n");
-        i++;
-    }
+    moverBispo(5);
 
-    // Movimentação da RAINHA: 8 casas para a esquerda (DO-WHILE)
     printf("\nMovimentação da Rainha:\n");
-    i = 0;
-    do {
-        printf("Esquerda\n");
-        i++;
-    } while (i < MOV_RAINHA);
+    moverRainha(8);
 
-    // Movimentação do CAVALO: 3 movimentos em L (2 Baixo + 1 Esquerda)
     printf("\nMovimentação do Cavalo:\n");
-    for (i = 0; i < MOV_CAVALO; i++) {
-        int j = 0;
-        while (j < 2) {
-            printf("Baixo\n");
-            j++;
-        }
-        printf("Esquerda\n");
-    }
+    moverCavalo();
 
     return 0;
 }
